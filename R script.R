@@ -14,3 +14,11 @@ sqrt(65)
 log(100) #log base e
 log10(100)
 
+c1<-"This is a string"
+typeof(c1)
+
+l1<-TRUE
+typeof(l1)
+
+l2<-F
+typeof(l2)
