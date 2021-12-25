@@ -16,7 +16,6 @@ df<-iris
 head(df)
 
 
-
 hist(df$Sepal.Width,col="#CD0000",border=NA)
 main = "Histogram of sepal Width"
 
