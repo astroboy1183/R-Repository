@@ -31,4 +31,18 @@ hist(df$Petal.Length,col="#CD0000")
 main3 = "Histogram of sepal Width"
 df
 
+iris
 
+library(help=datasets)
+
+?UCBAdmissions
+UCBAdmissions
+summary(UCBAdmissions)
+
+?Titanic
+Titanic
+summary(Titanic)
+
+?swiss
+swiss
+summary(swiss)
