@@ -287,3 +287,157 @@ hc%>% rect.hclust(k=2) #draw rectangular boxes
 hc%>% rect.hclust(k=4)
 
 
+df%>%
+  select(state_code,psychRegions,instagram:modernDance)%>%
+  mutate(psychRegions = as.factor(psychRegions))%>%
+  rename(y=psychRegions)%>%
+  print()
+
+
+df%>%
+  filter(entrepreneur>1)%>%
+  print()
+
+df%>%
+  filter(region=='West')%>%
+  print()
+
+df%>%
+  filter(psychRegions=='Relaxed and Creative')%>%
+  print()
+
+
+
+#mutate-part of dplyr package
+
+df%>%
+  select(state_code,psychRegions,instagram:modernDance)%>%
+  mutate(psychRegions = as.factor(psychRegions))%>% #converts column from numeric to factor
+  rename(y=psychRegions)%>%
+  print()
+
+df %>%
+  mutate(relaxed = recode(psychRegions,'Relaxed and Creative' = 'yes','Friendly and Conventional'='no',.default='no'))%>%
+  select(state_code,psychRegions,relaxed)
+
+
+df2<-df%>% #creating a new column
+  mutate(likeArts=case_when(museum>1|modernDance>1|scrapbook>1 ~'yes',TRUE~'no'))
+
+df2%>%
+  select(state_code , likeArts,museum:modernDance)%>%
+  arrange(desc(likeArts))%>%
+  print(n=Inf)
+
+
+
+df%>%
+  select(state_code,psychRegions,instagram:modernDance)%>%
+  mutate(psychRegions = as.factor(psychRegions))%>%
+  rename(y=psychRegions)%>%
+  print()
+
+df%>%
+  mutate(socialMedia=(instagram + facebook + retweet)/3, artscrafts = 
+           (museum+scrapbook+modernDance)/3)%>%
+  select(state_code,socialMedia,artscrafts)
+
+#lookup package-scale, package-psych packages in R.
+
+
+
+df%>%
+  select(state_code,psychRegions,instagram:modernDance)%>%
+  mutate(psychRegions = as.factor(psychRegions))%>%
+  rename(y=psychRegions)%>%
+  print()
+
+summary(df)
+
+df%>%
+  select(psychRegions)%>%
+  summary()
+
+
+df%>%
+  select(psychRegions)%>%
+  table()
+
+
+
+df%>%
+  mutate(region=as.factor(region))%>%
+  mutate(psychregions = as.factor(psychRegions))%>%
+  print()
+
+
+
+
+df%>%
+  select(state_code,psychRegions,instagram:modernDance)%>%
+  mutate(psychRegions = as.factor(psychRegions))%>%
+  rename(y=psychRegions)%>%
+  print()
+
+df%>%summary() #Summary of the table
+
+df%>%
+  select(entrepreneur)%>%
+  summary()
+
+#five number summary-minimum,lower-hinge,median,upper-hinge,maximum,
+fivenum(df$entrepreneur)
+
+boxplot(df$entrepreneur,notch=T,horizontal=T)
+boxplot.stats(df$entrepreneur)
+
+
+
+p_load(psych)
+p_help(psych,web=F)
+
+describe(df)
+describe(df$privacy)
+
+
+
+df<-read_excel('StateData.xlsx')
+df<-df%>%
+  select(instagram:modernDance)
+
+df%>%
+  cor()%>%
+  round(2)
+
+cor.test(df$instagram,df$facebook)  
+
+df<-read_excel('StateData.xlsx')
+
+df%>%
+  select(museum,volunteering)%>%
+  plot()
+  
+lm(df$museum~df$volunteering)%>%
+  abline()
+
+fit1<-lm(df$volunteering~df$museum)
+fit1
+
+summary(fit1)
+confint(fit1)
+predict(fit1)
+
+#regression diagnostics
+lm.influence(fit1)
+influence.measures(fit1)
+
+
+#multiple regression
+df<-df%>%
+  select(volunteering,everything())%>%
+  print()
+
+lm(df)
+
+m<-lm(formula = volunteering~instagram+facebook+retweet,data=df)
+m
