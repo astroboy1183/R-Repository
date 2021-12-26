@@ -132,11 +132,11 @@ df<-diamonds %>%
   table()%>%
   print()
 
-df%>%
+df %>%
   barplot(legend=rownames(.),beside = T) #stack plots beside each other
 
 
-df%>%
+df %>%
   barplot(legend=rownames(.)) #plot with legend
 
 
