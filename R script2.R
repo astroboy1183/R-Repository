@@ -176,4 +176,114 @@ diamonds%>%
 
 #scatterplots
 
-install.packages("readxl")
+install.packages("readxl") #installing readxl package to read excel data
+
+library("readxl")
+df<-read_excel('StateData.xlsx')
+df
+
+df %>%
+  select(instagram:modernDance)%>%
+  plot() #plot all associations
+
+df
+
+
+df %>% #bivariate scatterplot
+  select(extraversion:modernDance)%>%
+  plot()
+
+df %>% #bivariate scatterplot
+  select(scrapbook:modernDance)%>%
+  plot()
+
+df %>% #bivariate scatterplot
+  select(instagram,modernDance)%>%
+  plot()
+
+
+#bivariate scatterplot with options
+
+df %>% 
+  select(scrapbook:modernDance)%>%
+  plot(col=colors()[100],pch=20,ylab='moderndance',xlab='scrapbook',main='Google searches')
+
+#df %>% 
+  #lm(modernDance~scrapbook,data=.)%>%
+  #plot()
+
+df %>% 
+  lm(modernDance~scrapbook,data=.)%>%
+  abline()
+
+#identify outlier
+
+df%>%
+  select(state_code,scrapbook)%>%
+  filter(scrapbook>4)
+
+#draw plot without outlier
+df %>% 
+  select(scrapbook:modernDance)%>%
+  filter(scrapbook<4)%>%
+  plot(col=colors()[100],pch=20,ylab='moderndance',xlab='scrapbook',main='Google searches')
+
+#draw new regression line
+df%>%
+  filter(scrapbook<4)%>%
+  lm(scrapbook~modernDance,data=.)%>%
+  abline()
+
+
+
+#line charts
+
+?uspop
+uspop
+
+plot(uspop)
+
+plot(uspop,main = 'US population 1790-1970',xlab='Time',
+     ylab='US Population(in millions)')
+abline(v=1930,col='red')
+abline(v=1940,col='red')
+text(1930,10,"1930",col='black')
+text(1940,10,"1940",col='black')
+
+#multiple time series
+?ts.plot()
+ts.plot(uspop)
+
+#powerful alternative
+plot.ts(uspop)
+
+#stock market dataset
+EuStockMarkets
+
+plot(EuStockMarkets) #stacked plots
+plot.ts(EuStockMarkets) #same as previous plot
+ts.plot(EuStockMarkets)#in one plot.
+
+
+
+#cluster plots
+df<-read_excel('StateData.xlsx')
+df
+
+df%>%
+  select(state_code,psychRegions,instagram:modernDance)%>%
+  mutate(psychRegions = as.factor(psychRegions))%>%
+  rename(y=psychRegions)%>%
+  print()
+
+
+hc<-df %>% #get data
+  dist %>% #compute distance matrix
+  hclust #compute clusters
+
+hc %>% plot(labels = df$state_code)
+
+hc%>% rect.hclust(k=2) #draw rectangular boxes
+hc%>% rect.hclust(k=4)
+
+
