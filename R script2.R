@@ -441,3 +441,5 @@ lm(df)
 
 m<-lm(formula = volunteering~instagram+facebook+retweet,data=df)
 m
+
+#end of the course.
